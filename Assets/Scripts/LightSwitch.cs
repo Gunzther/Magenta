@@ -7,10 +7,14 @@ public class LightSwitch : MonoBehaviour
     public Light[] lights;
     public GameObject particle;
     public bool isOn = true;
+    public bool AutoFindLight;
 
     void Awake()
     {
-        lights = FindObjectsOfType<Light>();
+        if (AutoFindLight)
+        {
+            lights = FindObjectsOfType<Light>();
+        }
     }
 
     // Start is called before the first frame update

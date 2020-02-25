@@ -213,9 +213,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6853ef6480dcffa458eda7ab4dc50100, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  lights: []
+  lights:
+  - {fileID: 1801940680376610110}
+  - {fileID: 1801940678722146192}
+  - {fileID: 1801940678798829514}
   particle: {fileID: 1738001979}
   isOn: 1
+  AutoFindLight: 0
 --- !u!1001 &365240637
 PrefabInstance:
   m_ObjectHideFlags: 0
