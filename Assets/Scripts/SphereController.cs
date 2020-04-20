@@ -4,8 +4,8 @@ using UnityEngine;
 
 public class SphereController : MonoBehaviour
 {
-    public float jumpPow = 10f;
-    Vector3[] v3 = { Vector3.left, Vector3.right, Vector3.forward, Vector3.back };
+    public float speed;
+
     Rigidbody rb;
     
     // Start is called before the first frame update
@@ -17,19 +17,10 @@ public class SphereController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Space))
-        {
-            rb.AddForce(v3[Random.Range(0, 4)] * jumpPow, ForceMode.Impulse);
-            rb.AddForce(Vector3.up * jumpPow, ForceMode.Impulse);
-        }
-        if (transform.position.y < -50)
-        {
-            transform.position = new Vector3(0, 0.5f, 0);
-        }
-    }
-
-    private void FixedUpdate()
-    {
-        rb.AddForce(Input.GetAxis("Horizontal")*15f, 0, Input.GetAxis("Vertical")*15f);
+        if (Input.GetKey(KeyCode.LeftArrow)) transform.position = new Vector3(transform.position.x, transform.position.y, transform.position.z - speed);
+        if (Input.GetKey(KeyCode.RightArrow)) transform.position = new Vector3(transform.position.x, transform.position.y, transform.position.z + speed);
+        if (Input.GetKey(KeyCode.UpArrow)) transform.position = new Vector3(transform.position.x - speed, transform.position.y, transform.position.z);
+        if (Input.GetKey(KeyCode.DownArrow)) transform.position = new Vector3(transform.position.x + speed, transform.position.y, transform.position.z);
+        if (transform.position.y <= -5) transform.position = new Vector3(0, 2f, 0.1f);
     }
 }
