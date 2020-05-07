@@ -4,26 +4,28 @@ using UnityEngine;
 
 public class CameraController : MonoBehaviour
 {
-    public GameObject target;
+    public Transform target;
+    public float smoothing;        // The speed with which the camera will be following.
+
+    Vector3 offset;
 
     private void Awake()
     {
         if (target == null)
         {
             print("Target of cam is null.");
-            target = GameObject.FindGameObjectWithTag("player");
+            target = GameObject.FindGameObjectWithTag("player").transform;
         }
     }
 
-    // Start is called before the first frame update
     void Start()
     {
-        
+        offset = transform.position - target.position;
     }
 
-    // Update is called once per frame
-    void Update()
+    void FixedUpdate()
     {
-        transform.position = new Vector3(target.transform.position.x - 7.5f, transform.position.y, target.transform.position.z + 4f);
+        Vector3 targetCamPos = target.position + offset;
+        transform.position = Vector3.Lerp(transform.position, targetCamPos, smoothing * Time.deltaTime);
     }
 }
