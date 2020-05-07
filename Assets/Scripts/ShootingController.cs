@@ -74,7 +74,7 @@ public class ShootingController : MonoBehaviour
 
             if (enemyHealth != null)
             {
-                print(shootHit.transform.name);
+                //print(shootHit.transform.name);
                 enemyHealth.TakeDamage(damagePerShot, shootHit.point);
             }
             gunLine.SetPosition(1, shootHit.point);

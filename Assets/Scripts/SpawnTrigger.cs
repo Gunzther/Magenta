@@ -6,6 +6,7 @@ public class SpawnTrigger : MonoBehaviour
 {
     public List<Transform> spawnPoints;
     public int round;
+    public float waitTime = 3;
     public GameObject enemy, enemyBox;
 
     private bool isTrigger, active;
@@ -17,13 +18,17 @@ public class SpawnTrigger : MonoBehaviour
         isTrigger = false;
         active = true;
         count = 0;
+        timer = 0;
     }
 
     private void Update()
     {
-        if(isTrigger) timer += Time.deltaTime;
+        if (isTrigger)
+        {
+            timer += Time.deltaTime;
+        }
 
-        if(count < round && timer >= 3)
+        if(timer >= waitTime && count < round)
         {
             print("spawn time");
             timer = 0;
@@ -38,10 +43,11 @@ public class SpawnTrigger : MonoBehaviour
         foreach (Transform sp in spawnPoints)
         {
             GameObject en = Instantiate(enemy);
-            en.transform.position = new Vector3(sp.position.x, 0.1f, sp.position.z);
+            en.SetActive(true);
             en.transform.parent = enemyBox.transform;
+            en.transform.position = new Vector3(sp.position.x, 0.1f, sp.position.z);
 
-            print(en.transform.position);
+            //print(en.transform.position);
         }
     }
 
