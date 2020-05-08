@@ -1,4 +1,1 @@
-## Let's Play at https://a-room-2.now.sh/
-
-### How to play?
-    Press spacebar to jump
+## Let's Play Mini Tofu Version at https://super-mini-tofu.now.sh/
