@@ -12,8 +12,8 @@ GameObject:
   - component: {fileID: 33000014293251042}
   - component: {fileID: 23000012199166026}
   m_Layer: 0
-  m_Name: Barrel_WideS
-  m_TagString: Untagged
+  m_Name: Key_Green
+  m_TagString: key
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

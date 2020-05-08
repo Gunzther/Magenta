@@ -1,13 +1,15 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class TofuController : MonoBehaviour
 {
     public float speed;
+    public bool openBag;
 
     int floorMask;                      
-    float camRayLength = 100f;          
+    float camRayLength = 100f;
     Vector3 movement;
     Rigidbody rb;
 
@@ -20,21 +22,24 @@ public class TofuController : MonoBehaviour
     private void Start()
     {
         Physics.IgnoreLayerCollision(10, 11);
+        Physics.IgnoreLayerCollision(12, 13);
     }
 
     void Update()
     {
-       
+
     }
 
     void FixedUpdate()
     {
-        float h = Input.GetAxisRaw("Horizontal");
-        float v = Input.GetAxisRaw("Vertical");
+        if (!openBag)
+        {
+            float h = Input.GetAxisRaw("Horizontal");
+            float v = Input.GetAxisRaw("Vertical");
 
-        Move(h, v);
-
-        Turning();
+            Move(h, v);
+            Turning();
+        }
     }
 
     void Move(float h, float v)
