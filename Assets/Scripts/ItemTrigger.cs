@@ -7,8 +7,7 @@ public class ItemTrigger : MonoBehaviour
 {
     public GameObject ePanel;
 
-    //float[] keyPosInBag = { 0.7f, 0, -0.7f, -1.4f, -2.1f, -2.8f };
-    int itemPos, choosingItemIndex, keyIndex;
+    int choosingItemIndex, keyIndex;
     bool foundKey, openBag;
     string keyName;
     GameObject foundedKeyGO;
@@ -22,7 +21,6 @@ public class ItemTrigger : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        itemPos = 0;
         openBag = false;
         foundKey = false;
         keyName = "";
@@ -37,22 +35,19 @@ public class ItemTrigger : MonoBehaviour
         {
             print("picked up key");
             AddToBag(foundedKeyGO.gameObject);
+            foundKey = false;
         }
 
         if (openBag)
         {
-            if (Input.GetKeyDown(KeyCode.A))
-            {
-                if(choosingItemIndex > 0) choosingItemIndex -= 1;
-            }
-            if (Input.GetKeyDown(KeyCode.D))
-            {
-                if (choosingItemIndex < bag.childCount - 1) choosingItemIndex += 1; 
-            }
             if (Input.GetKeyDown(KeyCode.Space))
             {
                 keyName = bag.GetChild(choosingItemIndex).transform.name;
                 keyIndex = choosingItemIndex;
+                CloseBag();
+            }
+            if (Input.GetKeyDown(KeyCode.A) || Input.GetKeyDown(KeyCode.S) || Input.GetKeyDown(KeyCode.D) || Input.GetKeyDown(KeyCode.W))
+            {
                 CloseBag();
             }
         }
@@ -89,6 +84,7 @@ public class ItemTrigger : MonoBehaviour
         if (other.transform.tag == "key")
         {
             ePanel.SetActive(false);
+            foundKey = false;
         }
     }
 
@@ -97,7 +93,6 @@ public class ItemTrigger : MonoBehaviour
         item.transform.parent = bag;
         item.transform.localPosition = new Vector3(0, 0, 0);
         ePanel.SetActive(false);
-        itemPos += 1;
     }
 
     public void ResetKeyPicked()
@@ -108,7 +103,6 @@ public class ItemTrigger : MonoBehaviour
 
     public void RemoveFromBag(int index)
     {
-        itemPos -= 1;
         Destroy(bag.GetChild(index).gameObject);
         ResetKeyPicked();
     }
@@ -119,7 +113,7 @@ public class ItemTrigger : MonoBehaviour
         {
             foundKey = false;
             ePanel.SetActive(true);
-            ePanel.GetComponentInChildren<Text>().text = "press SPACE to use item";
+            ePanel.GetComponentInChildren<Text>().text = "press SPACE to use item, A S W D to close the bag";
 
             bag.gameObject.SetActive(true);
             transform.parent.GetComponent<TofuController>().openBag = true;
@@ -144,5 +138,11 @@ public class ItemTrigger : MonoBehaviour
     public int GetKeyChoseIndex()
     {
         return keyIndex;
+    }
+
+    public bool IsEmptyBag()
+    {
+        if (bag.childCount == 0) return true;
+        return false;
     }
 }

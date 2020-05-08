@@ -7,6 +7,7 @@ public class KeyManager : MonoBehaviour
 {
     public GameObject ePanel;
     public string keyColor;
+    public bool doorActive;
 
     private bool keyCheckActive, waitForKey;
     private ItemTrigger player;
@@ -23,6 +24,7 @@ public class KeyManager : MonoBehaviour
     {
         keyCheckActive = false;
         waitForKey = false;
+        doorActive = false;
     }
 
     // Update is called once per frame
@@ -55,7 +57,7 @@ public class KeyManager : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if(other.transform.tag == "playerBase")
+        if(doorActive && !player.IsEmptyBag() && other.transform.tag == "playerBase")
         {
             ePanel.SetActive(true);
             ePanel.GetComponentInChildren<Text>().text = "press E to open bag";

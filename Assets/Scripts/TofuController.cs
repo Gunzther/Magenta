@@ -6,7 +6,7 @@ using UnityEngine.UI;
 public class TofuController : MonoBehaviour
 {
     public float speed;
-    public bool openBag;
+    public bool openBag, repairing;
 
     int floorMask;                      
     float camRayLength = 100f;
@@ -17,6 +17,8 @@ public class TofuController : MonoBehaviour
     {
         floorMask = LayerMask.GetMask("Floor");
         rb = GetComponent<Rigidbody>();
+        openBag = false;
+        repairing = false;
     }
 
     private void Start()
@@ -32,7 +34,7 @@ public class TofuController : MonoBehaviour
 
     void FixedUpdate()
     {
-        if (!openBag)
+        if (!openBag && !repairing)
         {
             float h = Input.GetAxisRaw("Horizontal");
             float v = Input.GetAxisRaw("Vertical");
