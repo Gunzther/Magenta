@@ -5,7 +5,8 @@ using UnityEngine.UI;
 
 public class ItemTrigger : MonoBehaviour
 {
-    public GameObject ePanel;
+    public GameObject ePanel, skillPanel;
+    public GameObject greenDoor;
 
     int choosingItemIndex, keyIndex;
     bool foundKey, openBag;
@@ -33,14 +34,18 @@ public class ItemTrigger : MonoBehaviour
     {
         if (foundKey && Input.GetKeyDown(KeyCode.E))
         {
-            print("picked up key");
+            //print("picked up key");
+            if(foundedKeyGO.transform.name == "Key_White")
+            {
+                greenDoor.GetComponent<Animator>().SetBool("open", true);
+            }
             AddToBag(foundedKeyGO.gameObject);
             foundKey = false;
         }
 
         if (openBag)
         {
-            if (Input.GetKeyDown(KeyCode.Space))
+            if (Input.GetKeyDown(KeyCode.R))
             {
                 keyName = bag.GetChild(choosingItemIndex).transform.name;
                 keyIndex = choosingItemIndex;
@@ -63,7 +68,7 @@ public class ItemTrigger : MonoBehaviour
     {
         if (other.transform.tag == "key")
         {
-            print("found key");
+            //print("found key");
             ePanel.SetActive(true);
 
             if(bag.childCount > 0)
@@ -77,6 +82,13 @@ public class ItemTrigger : MonoBehaviour
                 foundKey = true;
             }
         }
+
+        else if (other.transform.tag == "skill")
+        {
+            skillPanel.SetActive(true);
+            Destroy(other.gameObject);
+            Invoke("CloseSkillPanel", 4.5f);
+        }
     }
 
     private void OnTriggerExit(Collider other)
@@ -86,6 +98,12 @@ public class ItemTrigger : MonoBehaviour
             ePanel.SetActive(false);
             foundKey = false;
         }
+    }
+
+    void CloseSkillPanel()
+    {
+        skillPanel.SetActive(false);
+        transform.parent.GetComponent<TofuController>().jumpActive = true;
     }
 
     void AddToBag(GameObject item)
@@ -106,14 +124,14 @@ public class ItemTrigger : MonoBehaviour
         Destroy(bag.GetChild(index).gameObject);
         ResetKeyPicked();
     }
-
+    
     public void OpenBag()
     {
         if(bag.childCount > 0)
         {
             foundKey = false;
             ePanel.SetActive(true);
-            ePanel.GetComponentInChildren<Text>().text = "press SPACE to use item, A S W D to close the bag";
+            ePanel.GetComponentInChildren<Text>().text = "press R to use item, A S W D to close the bag";
 
             bag.gameObject.SetActive(true);
             transform.parent.GetComponent<TofuController>().openBag = true;

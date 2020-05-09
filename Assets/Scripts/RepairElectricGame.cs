@@ -37,12 +37,21 @@ public class RepairElectricGame : MonoBehaviour
         if (zRotation == 360) zRotation = 0;
         img.eulerAngles = new Vector3(0, 0, zRotation);
 
-        if(img.eulerAngles.z == degrees[i] || img.eulerAngles.z == degrees[i] + 180 || img.eulerAngles.z == degrees[i] - 180)
+        if(img.eulerAngles.z == degrees[i])
         {
             result[i] = true;
         }
+        else if(i == 3 || i == 7)
+        {
+            if (img.eulerAngles.z == degrees[i] + 180) result[i] = true;
+            else result[i] = false;
+        }
+        else
+        {
+            result[i] = false;
+        }
 
-        print(img.eulerAngles.z);
+        //print(i + ": " + result[i]);
     }
 
     public void Close()

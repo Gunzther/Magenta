@@ -6,6 +6,7 @@ public class CameraController : MonoBehaviour
 {
     public Transform target;
     public float smoothing;        // The speed with which the camera will be following.
+    public bool end;
 
     Vector3 offset;
 
@@ -16,6 +17,8 @@ public class CameraController : MonoBehaviour
             print("Target of cam is null.");
             target = GameObject.FindGameObjectWithTag("player").transform;
         }
+
+        end = false;
     }
 
     void Start()
@@ -25,7 +28,10 @@ public class CameraController : MonoBehaviour
 
     void FixedUpdate()
     {
-        Vector3 targetCamPos = target.position + offset;
-        transform.position = Vector3.Lerp(transform.position, targetCamPos, smoothing * Time.deltaTime);
+        if (!end)
+        {
+            Vector3 targetCamPos = target.position + offset;
+            transform.position = Vector3.Lerp(transform.position, targetCamPos, smoothing * Time.deltaTime);
+        }
     }
 }

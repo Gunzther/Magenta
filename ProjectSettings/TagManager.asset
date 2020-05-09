@@ -7,6 +7,9 @@ TagManager:
   - gm
   - key
   - playerBase
+  - miniTofu
+  - warp
+  - skill
   layers:
   - Default
   - TransparentFX

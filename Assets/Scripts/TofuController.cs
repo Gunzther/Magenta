@@ -5,8 +5,8 @@ using UnityEngine.UI;
 
 public class TofuController : MonoBehaviour
 {
-    public float speed;
-    public bool openBag, repairing;
+    public float speed, jumpPow;
+    public bool openBag, repairing, jumpActive;
 
     int floorMask;                      
     float camRayLength = 100f;
@@ -27,9 +27,12 @@ public class TofuController : MonoBehaviour
         Physics.IgnoreLayerCollision(12, 13);
     }
 
-    void Update()
+    private void Update()
     {
-
+        if(jumpActive && Input.GetKeyDown(KeyCode.Space))
+        {
+            rb.AddForce(transform.up * jumpPow, ForceMode.Impulse);
+        }
     }
 
     void FixedUpdate()

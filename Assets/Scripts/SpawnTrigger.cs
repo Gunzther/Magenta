@@ -12,6 +12,12 @@ public class SpawnTrigger : MonoBehaviour
     private bool isTrigger, active;
     private int count;
     private float timer;
+    private MonsterBloodManager bloodManager;
+
+    private void Awake()
+    {
+        bloodManager = transform.parent.GetComponent<MonsterBloodManager>();
+    }
 
     private void Start()
     {
@@ -32,14 +38,19 @@ public class SpawnTrigger : MonoBehaviour
         {
             print("spawn time");
             timer = 0;
-            Spawn();
             count++;
+            Spawn();
         }
     }
 
     private void Spawn()
     {
-        print("spawn");
+        if(count == round)
+        {
+            Invoke("CountSpawn", 1f);
+        }
+
+        //print("spawn");
         foreach (Transform sp in spawnPoints)
         {
             GameObject en = Instantiate(enemy);
@@ -60,5 +71,11 @@ public class SpawnTrigger : MonoBehaviour
             count++;
             Spawn();
         }
+    }
+
+    private void CountSpawn()
+    {
+        bloodManager.spawn += 1;
+        print(bloodManager.spawn);
     }
 }

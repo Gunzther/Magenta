@@ -9,7 +9,7 @@ public class ElectricityManager : MonoBehaviour
     public List<GameObject> doors;
     public GameObject ePanel;
     public GameObject repairPanel;
-    public bool waitForE;
+    public bool waitForE, openDoorAfterRepair;
 
     private bool repaired;
     private Animator turretAnim;
@@ -60,17 +60,30 @@ public class ElectricityManager : MonoBehaviour
     {
         tofuController.repairing = false;
         repaired = true;
-        repairPanel.SetActive(false);
+
+        Invoke("ClosePanel", 0.5f);
+
         turretAnim.SetBool("repair", true);
 
         Invoke("ActiveLight", 2);
+    }
+
+    void ClosePanel()
+    {
+        repairPanel.SetActive(false);
     }
 
     void ActiveLight()
     {
         foreach (GameObject door in doors)
         {
-            door.GetComponent<Animator>().SetBool("active", true);
+            if (openDoorAfterRepair && door.transform.name == "Door (5)")
+            {
+                door.GetComponent<Animator>().SetBool("open", true);
+                Destroy(door.transform.GetChild(3).gameObject);
+                openDoorAfterRepair = false;
+            }
+            else door.GetComponent<Animator>().SetBool("active", true);
         }
 
         foreach (GameObject light in lightRooms)

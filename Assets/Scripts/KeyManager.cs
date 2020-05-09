@@ -5,17 +5,19 @@ using UnityEngine.UI;
 
 public class KeyManager : MonoBehaviour
 {
-    public GameObject ePanel;
+    public GameObject ePanel, warp;
     public string keyColor;
     public bool doorActive;
 
     private bool keyCheckActive, waitForKey;
     private ItemTrigger player;
     private Animator anim;
+    private GameObject miniTofu;
 
     private void Awake()
     {
         player = GameObject.FindGameObjectWithTag("Player").GetComponentInChildren<ItemTrigger>();
+        miniTofu = GameObject.FindGameObjectWithTag("miniTofu");
         anim = transform.parent.GetComponent<Animator>();
     }
 
@@ -41,7 +43,7 @@ public class KeyManager : MonoBehaviour
 
         if(waitForKey && IsOwnKey(keyChose))
         {
-            print("door's open");
+            //print("door's open");
             player.RemoveFromBag(index);
             anim.SetBool("open", true);
             waitForKey = false;
@@ -49,7 +51,7 @@ public class KeyManager : MonoBehaviour
 
         if (waitForKey && keyChose != "" && !IsOwnKey(keyChose))
         {
-            print("wrong key");
+            print("wrong key: " + keyChose);
             //sound play()
             player.ResetKeyPicked();
         }
@@ -76,7 +78,20 @@ public class KeyManager : MonoBehaviour
 
     private bool IsOwnKey(string keyColorTracked)
     {
-        if (keyColorTracked == keyColor) return true;
+        if (keyColorTracked == keyColor)
+        {
+            if (keyColorTracked == "Key_White")
+            {
+                warp.SetActive(true);
+                Invoke("LeadToHome", 5);
+            }
+            return true;
+        }
         return false;
+    }
+
+    public void LeadToHome()
+    {
+        miniTofu.GetComponent<Animator>().SetBool("leading", true);
     }
 }

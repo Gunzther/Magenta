@@ -199,6 +199,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ePanel: {fileID: 0}
+  skillPanel: {fileID: 0}
+  greenDoor: {fileID: 0}
 --- !u!1 &294614456159355574
 GameObject:
   m_ObjectHideFlags: 0
@@ -213,6 +215,7 @@ GameObject:
   - component: {fileID: 294614456159355575}
   - component: {fileID: 7629809547175113236}
   - component: {fileID: 7629809547175113247}
+  - component: {fileID: 2133120368}
   m_Layer: 12
   m_Name: TofuGun
   m_TagString: Player
@@ -313,7 +316,7 @@ Rigidbody:
   m_UseGravity: 1
   m_IsKinematic: 0
   m_Interpolate: 0
-  m_Constraints: 116
+  m_Constraints: 112
   m_CollisionDetection: 0
 --- !u!114 &7629809547175113247
 MonoBehaviour:
@@ -328,7 +331,29 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   speed: 5
+  jumpPow: 7
   openBag: 0
+  repairing: 0
+  jumpActive: 0
+--- !u!95 &2133120368
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 294614456159355574}
+  m_Enabled: 0
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: c533f0f7ae57c89449903b352d0e88e5, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!1 &2237246522759527438
 GameObject:
   m_ObjectHideFlags: 0
