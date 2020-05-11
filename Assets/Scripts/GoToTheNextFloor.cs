@@ -40,6 +40,6 @@ public class GoToTheNextFloor : MonoBehaviour
 
     private void NextScene()
     {
-        SceneManager.LoadScene(1);
+        SceneManager.LoadScene(0);
     }
 }
