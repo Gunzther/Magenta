@@ -27,9 +27,9 @@ public class MonsterBloodManager : MonoBehaviour
             if(count == 5)
             {
                 tofu.GetComponent<TofuController>().repairing = true;
-                Invoke("ShowBlood", 2f);
-                Invoke("ShowBasement", 1f);
-                Invoke("BackToTofu", 6f);
+                Invoke("ShowBlood", 1f);
+                Invoke("ShowBasement", 3f);
+                Invoke("BackToTofu", 7f);
                 showed = true;
             }
             mapAnim.SetTrigger("bloodIn");

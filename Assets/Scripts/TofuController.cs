@@ -10,7 +10,7 @@ public class TofuController : MonoBehaviour
 
     int floorMask;                      
     float camRayLength = 100f;
-    Vector3 movement;
+    Vector3 movement, startPos;
     Rigidbody rb;
 
     private void Awake()
@@ -25,6 +25,7 @@ public class TofuController : MonoBehaviour
     {
         Physics.IgnoreLayerCollision(10, 11);
         Physics.IgnoreLayerCollision(12, 13);
+        startPos = transform.position;
     }
 
     private void Update()
@@ -32,6 +33,11 @@ public class TofuController : MonoBehaviour
         if(jumpActive && Input.GetKeyDown(KeyCode.Space))
         {
             rb.AddForce(transform.up * jumpPow, ForceMode.Impulse);
+        }
+
+        if(transform.position.y < -4)
+        {
+            transform.position = startPos;
         }
     }
 

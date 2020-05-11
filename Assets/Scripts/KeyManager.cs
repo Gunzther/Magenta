@@ -38,18 +38,19 @@ public class KeyManager : MonoBehaviour
         if (keyCheckActive && Input.GetKeyDown(KeyCode.E))
         {
             waitForKey = true;
+            keyCheckActive = false;
             player.OpenBag();
         }
 
         if(waitForKey && IsOwnKey(keyChose))
         {
-            //print("door's open");
+            print("door's open");
             player.RemoveFromBag(index);
             anim.SetBool("open", true);
             waitForKey = false;
         }
 
-        if (waitForKey && keyChose != "" && !IsOwnKey(keyChose))
+        if (waitForKey && (keyChose != "" || !IsOwnKey(keyChose)))
         {
             print("wrong key: " + keyChose);
             //sound play()
@@ -71,6 +72,7 @@ public class KeyManager : MonoBehaviour
     {
         if (other.transform.tag == "Player")
         {
+            waitForKey = false;
             keyCheckActive = false;
             ePanel.SetActive(false);
         }
@@ -78,6 +80,7 @@ public class KeyManager : MonoBehaviour
 
     private bool IsOwnKey(string keyColorTracked)
     {
+        print(keyColorTracked + ": " + keyColor);
         if (keyColorTracked == keyColor)
         {
             if (keyColorTracked == "Key_White")
