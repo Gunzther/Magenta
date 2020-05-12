@@ -14,7 +14,7 @@ public class ShootingController : MonoBehaviour
     RaycastHit shootHit;                            
     int shootableMask;                              
     LineRenderer gunLine;                           
-    //AudioSource gunAudio;                           
+    AudioSource gunAudio;                           
     //ParticleSystem gunParticles;                    
     float effectsDisplayTime = 0.2f;                
 
@@ -24,7 +24,7 @@ public class ShootingController : MonoBehaviour
 
         gunLine = GetComponent<LineRenderer>();
         //gunParticles = GetComponent<ParticleSystem>();
-        //gunAudio = GetComponent<AudioSource>();
+        gunAudio = GetComponent<AudioSource>();
     }
 
     void Update()
@@ -54,7 +54,7 @@ public class ShootingController : MonoBehaviour
     {
         timer = 0f;
 
-        //gunAudio.Play();
+        gunAudio.Play();
 
         gunLight.enabled = true;
 
